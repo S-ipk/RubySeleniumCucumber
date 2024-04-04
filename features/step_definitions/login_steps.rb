@@ -33,26 +33,25 @@ When("I click the {string} button") do |button_text|
   button.click
 end
 
-Then("I should be redirected to the dashboard page") do
-  # Add code here to verify that the user is redirected to the dashboard page
-  # For example:
-  # expect(page).to have_current_path('/dashboard')
-end
-
 Then("I should see a welcome message") do
   # Add code here to verify that a welcome message is displayed
   # For example:
   # expect(page).to have_content('Welcome, username!')
+  @driver.manage.timeouts.implicit_wait = 10 # seconds
+  welcome_message = @driver.find_element(:xpath, "//span[@class='logged-in' and contains(text(), 'Welcome, Test First!')]")
+  # Verify that the welcome message element is present
+  expect(welcome_message).to be_truthy
+  # Verify that the welcome message text matches the expected text
+  expect(welcome_message.text).to eq('Welcome, Test First!')
+
 end
 
 Then("I should see an error message") do
   # Add code here to verify that an error message is displayed
   # For example:
   # expect(page).to have_content('Invalid username or password')
+   @driver.manage.timeouts.implicit_wait = 10 # seconds
+   error_message = @driver.find_element(:xpath, "//div[@class='message-error error message']/div[contains(.,'The account sign-in was incorrect or your account is disabled temporarily. Pleas')]")
+   expect(error_message.text).to eq('The account sign-in was incorrect or your account is disabled temporarily. Please wait and try again later.')
 end
 
-Then("I should stay on the login page") do
-  # Add code here to verify that the user remains on the login page
-  # For example:
-  # expect(page).to have_current_path('/login')
-end

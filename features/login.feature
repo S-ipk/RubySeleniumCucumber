@@ -10,12 +10,11 @@ Feature: Login functionality
     When I enter "testQA1@gmail.com" as my username
     And I enter "QATesting1!" as my password
     And I click the "Login" button
-    Then I should be redirected to the dashboard page
     And I should see a welcome message
 
   Scenario: Login with invalid credentials
-    When I enter "invalid_username" as my username
-    And I enter "invalid_password" as my password
+    When I enter "testQA1@gmail.comtest" as my username
+    And I enter "QATesting1!" as my password
     And I click the "Sign In" button
     Then I should see an error message
-    And I should stay on the login page
+
